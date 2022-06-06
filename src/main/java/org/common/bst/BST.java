@@ -59,9 +59,9 @@ public class BST <T> {
     /**
      * Finds a value in the tree.
      *
-     * @return true if the value exists, false otherwise
+     * @return the number of times the value is in the tree
      */
-    public boolean findValue(Comparable<T> valueToFind) {
+    public int findValue(Comparable<T> valueToFind) {
         Optional<Node<T>> currentNodeOptional = Optional.ofNullable(root);
 
         while (currentNodeOptional.isPresent()) {
@@ -72,11 +72,11 @@ public class BST <T> {
             } else if (compareValue < 0) {
                 currentNodeOptional = currentNode.getLeftChild();
             } else {
-                return true;
+                return currentNode.getCount();
             }
         }
 
-        return false;
+        return 0;
     }
 
     /**

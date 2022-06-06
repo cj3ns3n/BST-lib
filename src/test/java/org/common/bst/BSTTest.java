@@ -22,7 +22,7 @@ public class BSTTest
         }
         tree.addValue(target);
 
-        assertTrue(tree.findValue(target));
+        assertEquals(1, tree.findValue(target));
     }
 
     @Test
@@ -35,7 +35,26 @@ public class BSTTest
             tree.addValue(random.nextInt(target));
         }
 
-        assertFalse(tree.findValue(target));
+        assertEquals(0, tree.findValue(target));
+    }
+
+    @Test
+    public void duplicateTest() {
+        int target = 10000;
+        Random random = new Random();
+
+        BST tree = new BST();
+        for(int i = 0; i < 50; i++) {
+            tree.addValue(random.nextInt(target));
+        }
+        tree.addValue(target);
+        tree.addValue(target);
+        for(int i = 0; i < 50; i++) {
+            tree.addValue(random.nextInt(target));
+        }
+        tree.addValue(target);
+
+        assertEquals(3, tree.findValue(target));
     }
 
     @Test
