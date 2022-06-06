@@ -3,10 +3,7 @@ package org.common.bst;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Generic Binary Search Tree supporting any "Comparable" type.
@@ -56,6 +53,29 @@ public class BST <T> {
                 }
             }
         }
+    }
+
+    /**
+     * Finds a value in the tree.
+     *
+     * @return true if the value exists, false otherwise
+     */
+    public boolean findValue(Comparable<T> valueToFind) {
+        Optional<Node<T>> currentNodeOptional = Optional.ofNullable(root);
+
+        while (currentNodeOptional.isPresent()) {
+            Node<T> currentNode = currentNodeOptional.get();
+            int compareValue = valueToFind.compareTo(currentNode.getValue());
+            if (compareValue > 0) {
+                currentNodeOptional = currentNode.getRightChild();
+            } else if (compareValue < 0) {
+                currentNodeOptional = currentNode.getLeftChild();
+            } else {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -1,8 +1,5 @@
 package org.common.bst;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
@@ -10,8 +7,37 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.Assert.*;
+
 public class BSTTest
 {
+    @Test
+    public void successFindTest() {
+        int target = 10000;
+        Random random = new Random();
+
+        BST tree = new BST();
+        for(int i = 0; i < 100; i++) {
+            tree.addValue(random.nextInt(target));
+        }
+        tree.addValue(target);
+
+        assertTrue(tree.findValue(target));
+    }
+
+    @Test
+    public void failFindTest() {
+        int target = 10000;
+        Random random = new Random();
+
+        BST tree = new BST();
+        for(int i = 0; i < 100; i++) {
+            tree.addValue(random.nextInt(target));
+        }
+
+        assertFalse(tree.findValue(target));
+    }
+
     @Test
     public void basicTest1()
     {
