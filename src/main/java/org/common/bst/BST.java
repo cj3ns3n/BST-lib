@@ -33,14 +33,15 @@ public class BST <T> {
         } else {
             Node<T> currentNode = root;
             while (currentNode != null) {
-                if (newValue.compareTo(currentNode.getValue()) > 0) {
+                int compareValue = newValue.compareTo(currentNode.getValue());
+                if (compareValue > 0) {
                     if (currentNode.getRightChild().isEmpty()) {
                         currentNode.setRightChild(new Node<>(newValue));
                         currentNode = null;
                     } else {
                         currentNode = currentNode.getRightChild().get();
                     }
-                } else if (newValue.compareTo(currentNode.getValue()) < 0) {
+                } else if (compareValue < 0) {
                     if (currentNode.getLeftChild().isEmpty()) {
                         currentNode.setLeftchild(new Node<>(newValue));
                         currentNode = null;
