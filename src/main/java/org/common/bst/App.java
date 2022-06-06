@@ -1,20 +1,17 @@
 package org.common.bst;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        List<Integer> inputs = Arrays.asList(12, 11, 90, 82, 7, 9);
-        //List<int> input = Arrays.asList(26, 82, 16, 92, 33);
-
         final BST tree = new BST();
-        inputs.forEach(input -> tree.addValue(input));
+        Arrays.stream(args).forEach(input -> tree.addValue(Integer.valueOf(input)));
+        Pair<List<Integer>, Long> deepestNodes = tree.getDeepestValues();
+        System.out.println(String.format("deepest, %s; depth, %d", deepestNodes.getLeft().toString(), deepestNodes.getRight()));
     }
 }
