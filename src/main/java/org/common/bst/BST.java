@@ -58,6 +58,13 @@ public class BST <T> {
         }
     }
 
+    /**
+     * Finds the deepest level of the tree and return the level and values.
+     * Throws IllegalStateException if there are not values in the tree.
+     *
+     * @return a pair where the left is a list of the values at the deepest level of
+     * the tree and the right is the index of the level (starting with 0)
+     */
     public Pair<List<T>, Long> getDeepestValues() {
         if (root == null) {
             throw new IllegalStateException("no nodes present in the tree");
