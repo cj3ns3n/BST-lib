@@ -8,15 +8,28 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Generic Binary Search Tree supporting any "Comparable" type.
+ */
 public class BST <T> {
     private Node<T> root;
 
     public BST() { }
 
+    /**
+     * Constructor with root node value
+     *
+     * @param rootValue the initial root node value
+     */
     public BST(Comparable<T> rootValue) {
         root = new Node<>(rootValue);
     }
 
+    /**
+     * Add a value to the tree.
+     *
+     * @param newValue the value to be added
+     */
     public void addValue(Comparable<T> newValue) {
         if (root == null) {
             root = new Node<>(newValue);

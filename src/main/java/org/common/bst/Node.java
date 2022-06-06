@@ -2,6 +2,11 @@ package org.common.bst;
 
 import java.util.Optional;
 
+/**
+ * Node class to be used in a binary tree.
+ *
+ * @param <T>
+ */
 public class Node <T> {
     private  Comparable<T> value;
     private Node<T> lChild;
