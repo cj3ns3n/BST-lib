@@ -19,7 +19,7 @@ public class BST <T> {
      * @param rootValue the initial root node value
      */
     public BST(Comparable<T> rootValue) {
-        root = new Node<>(rootValue);
+        root = new Node<>(rootValue, null);
     }
 
     /**
@@ -29,21 +29,21 @@ public class BST <T> {
      */
     public void addValue(Comparable<T> newValue) {
         if (root == null) {
-            root = new Node<>(newValue);
+            root = new Node<>(newValue, null);
         } else {
             Node<T> currentNode = root;
             while (currentNode != null) {
                 int compareValue = newValue.compareTo(currentNode.getValue());
                 if (compareValue > 0) {
                     if (currentNode.getRightChild().isEmpty()) {
-                        currentNode.setRightChild(new Node<>(newValue));
+                        currentNode.setRightChild(new Node<>(newValue, currentNode));
                         currentNode = null;
                     } else {
                         currentNode = currentNode.getRightChild().get();
                     }
                 } else if (compareValue < 0) {
                     if (currentNode.getLeftChild().isEmpty()) {
-                        currentNode.setLeftchild(new Node<>(newValue));
+                        currentNode.setLeftchild(new Node<>(newValue, currentNode));
                         currentNode = null;
                     } else {
                         currentNode = currentNode.getLeftChild().get();
@@ -62,6 +62,10 @@ public class BST <T> {
      * @return the number of times the value is in the tree
      */
     public int findValue(Comparable<T> valueToFind) {
+        return findNode(valueToFind).map(node -> node.getCount()).orElse(0);
+    }
+
+    private Optional<Node<T>> findNode(Comparable<T> valueToFind) {
         Optional<Node<T>> currentNodeOptional = Optional.ofNullable(root);
 
         while (currentNodeOptional.isPresent()) {
@@ -72,11 +76,41 @@ public class BST <T> {
             } else if (compareValue < 0) {
                 currentNodeOptional = currentNode.getLeftChild();
             } else {
-                return currentNode.getCount();
+                return Optional.of(currentNode);
             }
         }
 
-        return 0;
+        return Optional.empty();
+    }
+
+    public void deleteValue(Comparable<T> valueToDelete) {
+        findNode(valueToDelete).ifPresent(node -> {
+        if (node != null) {
+            Node<T> parent = node.getParent();
+            if (parent == null) {
+                root = null;
+            } else {
+                if (node.getLeftChild().isPresent()) {
+                    if (parent.getLeftChild().get() == node) {
+                        parent.setLeftchild(node.getLeftChild().get());
+                    } else {
+                        parent.setRightChild(node.getLeftChild().get());
+                    }
+                } else if (node.getRightChild().isPresent()) {
+                    if (parent.getLeftChild().get() == node) {
+                        parent.setLeftchild(node.getRightChild().get());
+                    } else {
+                        parent.setRightChild(node.getRightChild().get());
+                    }
+                } else {
+                    if (parent.getLeftChild().get() == node) {
+                        parent.setLeftchild(null);
+                    } else {
+                        parent.setRightChild(null);
+                    }
+                }
+            }
+        }});
     }
 
     /**

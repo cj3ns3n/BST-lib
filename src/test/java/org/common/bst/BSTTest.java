@@ -61,7 +61,6 @@ public class BSTTest
     public void basicTest1()
     {
         List<Integer> inputs = Arrays.asList(12, 11, 90, 82, 7, 9);
-        //List<Integer> inputs = Arrays.asList(26, 82, 16, 92, 33);
 
         BST tree = new BST();
         inputs.forEach(input -> tree.addValue(input));
@@ -83,6 +82,28 @@ public class BSTTest
         assertEquals(2, deepestNodes.getLeft().size());
         assertTrue(deepestNodes.getLeft().contains(33));
         assertTrue(deepestNodes.getLeft().contains(92));
+    }
+
+    @Test
+    public void basicDeleteTest()
+    {
+        List<Integer> inputs = Arrays.asList(12, 11, 90, 82, 7, 9);
+
+        BST tree = new BST();
+        inputs.forEach(input -> tree.addValue(input));
+        tree.deleteValue(90);
+
+        assertEquals(0, tree.findValue(90));
+    }
+
+    @Test
+    public void deleteNonExistantTest()
+    {
+        List<Integer> inputs = Arrays.asList(12, 11, 90, 82, 7, 9);
+
+        BST tree = new BST();
+        inputs.forEach(input -> tree.addValue(input));
+        tree.deleteValue(900);
     }
 
     @Test
